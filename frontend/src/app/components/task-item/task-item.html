@@ -1,0 +1,27 @@
+<div class="card task-card" [class.completed]="task.status === 'completed'"
+    [class.high-priority]="task.priority === 'high'">
+    <div class="task-header">
+        <div class="status-indicator"></div>
+        <h3>{{ task.title }}</h3>
+        <span class="priority-badge" [class]="task.priority">{{ task.priority === 'high' ? 'Alta' : task.priority ===
+            'medium' ? 'Media' : 'Baja' }}</span>
+    </div>
+
+    <p class="description">{{ task.description }}</p>
+
+    <div class="meta">
+        <span class="date" *ngIf="task.dueDate">Vence: {{ task.dueDate | date:'mediumDate' }}</span>
+        <span class="remaining" *ngIf="remainingTime" [class.overdue]="remainingTime === 'Vencida'">
+            {{ remainingTime }}
+        </span>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-sm" [class.btn-success]="task.status === 'pending'"
+            [class.btn-secondary]="task.status === 'completed'" (click)="toggleStatus()">
+            {{ task.status === 'pending' ? 'Completar' : 'Reabrir' }}
+        </button>
+        <a [routerLink]="['/tasks/edit', task.id]" class="btn btn-sm btn-outline">Editar</a>
+        <button class="btn btn-sm btn-danger-outline" (click)="onDelete()">Eliminar</button>
+    </div>
+</div>

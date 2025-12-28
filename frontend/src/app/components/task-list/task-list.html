@@ -1,0 +1,34 @@
+<div class="list-header">
+    <h2>Mis Tareas</h2>
+    <a routerLink="/tasks/new" class="btn btn-primary">Agregar Tarea</a>
+</div>
+
+<div class="filters card">
+    <div class="form-group">
+        <input type="text" [(ngModel)]="filters.search" (input)="onFilterChange()" placeholder="Buscar tareas..."
+            class="form-control">
+    </div>
+    <div class="filter-row">
+        <select [(ngModel)]="filters.status" (change)="onFilterChange()" class="form-control">
+            <option value="">Todos los Estados</option>
+            <option value="pending">Pendiente</option>
+            <option value="completed">Completada</option>
+        </select>
+        <select [(ngModel)]="filters.priority" (change)="onFilterChange()" class="form-control">
+            <option value="">Todas las Prioridades</option>
+            <option value="low">Baja</option>
+            <option value="medium">Media</option>
+            <option value="high">Alta</option>
+        </select>
+    </div>
+</div>
+
+<div class="task-grid">
+    <app-task-item *ngFor="let task of tasks" [task]="task" (delete)="onDelete($event)"
+        (statusChange)="onStatusChange($event)">
+    </app-task-item>
+</div>
+
+<div *ngIf="tasks.length === 0" class="empty-state">
+    <p>No se encontraron tareas.</p>
+</div>
