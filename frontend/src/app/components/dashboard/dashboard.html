@@ -1,0 +1,44 @@
+<div class="dashboard-header">
+    <h2>Tablero</h2>
+</div>
+
+<div class="stats-grid">
+    <div class="card stat-card">
+        <div class="stat-value">{{ stats.total }}</div>
+        <div class="stat-label">Total Tareas</div>
+    </div>
+    <div class="card stat-card success">
+        <div class="stat-value">{{ stats.completed }}</div>
+        <div class="stat-label">Completadas</div>
+    </div>
+    <div class="card stat-card warning">
+        <div class="stat-value">{{ stats.pending }}</div>
+        <div class="stat-label">Pendientes</div>
+    </div>
+    <div class="card stat-card danger">
+        <div class="stat-value">{{ stats.overdue }}</div>
+        <div class="stat-label">Por Vencer</div>
+    </div>
+</div>
+
+<div class="chart-section card">
+    <h3>Tasa de Cumplimiento</h3>
+    <div class="progress-bar-container">
+        <div class="progress-bar" [style.width.%]="stats.completionRate">
+            {{ stats.completionRate }}%
+        </div>
+    </div>
+</div>
+
+<div class="upcoming-section">
+    <h3>Próximos Vencimientos</h3>
+    <div class="card bg-white mb-2" *ngFor="let task of upcomingTasks">
+        <div class="task-row">
+            <span class="font-bold">{{ task.title }}</span>
+            <span class="due-date">{{ task.dueDate | date:'mediumDate' }}</span>
+        </div>
+    </div>
+    <div *ngIf="upcomingTasks.length === 0" class="empty-state">
+        No hay tareas pendientes próximas.
+    </div>
+</div>
